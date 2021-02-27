@@ -1,0 +1,651 @@
+# File name: widgets2.kv
+#:import Factory kivy.factory.Factory
+<MyPopup@Popup>
+    id:my_widget
+    auto_dismiss:False
+    size_hint:0.7,0.8
+    pos_hint:{"x":0.2,"top":0.9}
+    title:"Select Picture"
+    BoxLayout:
+        orientation:"vertical"
+        size:root.width, root.height
+        spacing:10
+        padding:10
+
+        GridLayout:
+            cols:2
+            rows:1
+       
+            FileChooserListView:
+                id:filechooser
+                size_hint_y:2
+                
+                on_selection:
+                    root.selected(filechooser.selection)
+                    root.screen.manager.ids.fourthw.ids.imi.source=root.selected(filechooser.selection)
+
+        
+            Image:
+                id:uploaded_pic
+                source:""
+        Button:
+            size_hint:0.5,0.1
+            pos_hint:{'center_x':0.5}
+            text:"Upload"
+            font_size:18
+            on_release:
+                root.dismiss()
+                app.root.current="first"
+                root.screen.manager.transition.direction="right"
+                
+        
+
+    
+    
+<ScreenManagement>:
+    ZeroWindow:
+        id:zerow
+        name:"zero"
+    FirstWindow:
+        id:firstw
+        name:"first"
+    SecondWindow:
+        id:secondw
+        name:"second"
+    ThirdWindow_haircolor:
+        id:thirdwhc
+        name:"third_haircolor"
+    ThirdWindow_eyeshades:
+        id:thirdwes
+        name:"third_eyeshades"
+    ThirdWindow_nailpolish:
+        id:thirdwnp
+        name:"third_nailpolish"
+    ThirdWindow_lipstick:
+        name:"third_lipstick"
+        id:thirdwls
+    FourthWindow:
+        id:fourthw
+        name:"fourth"
+    
+<ZeroWindow>:
+        
+    canvas.before:
+        Rectangle:
+            pos: self.pos
+            size: self.size
+            source: 'background-high.jpg'    
+                  
+                       
+        
+
+    FloatLayout:
+        spacing:10
+        padding:50
+        
+        Image:
+            
+            source:'maiden_logo.png' 
+        Button:
+            
+            
+            background_normal: 'button_upload.png'
+            background_down:'button_upload_off.png'
+            size_hint:(.28, .13)
+            
+            pos_hint:{'center_x':.5, 'y':.05}
+            on_release:
+                Factory.MyPopup(root.manager.ids.firstw).open()        
+            
+            
+            
+              
+    
+                
+        
+<FirstWindow>:
+    canvas.before:
+        Rectangle:
+            pos: self.pos
+            size: self.size
+            source: 'background-high.jpg'
+    BoxLayout:
+        orientation:"vertical"
+        size:root.width, root.height
+        spacing:10
+        padding:50
+        
+        Image:
+            source:'maiden_logo.png'           
+        FloatLayout:
+            padding:50
+            spacing:10           
+                               
+                    
+            
+            Button:
+            
+            
+                background_normal: 'button_back.png'
+                background_down:'button_back_off.png'
+                size_hint:(0.28,0.28)
+            
+                pos_hint:{'center_x':.2, 'y':.05}
+                on_release:
+                    app.root.current="zero"
+                    root.manager.transition.direction="left"
+            Button:
+            
+            
+                background_normal: 'button_next.png'
+                background_down:'button_next_off.png'
+                size_hint:(0.28,0.28)
+            
+                pos_hint:{'center_x':.8, 'y':.05}
+                on_release:
+                    app.root.current="second"
+                    root.manager.transition.direction="right"
+                
+<SecondWindow>:
+    canvas.before:
+        Rectangle:
+            pos: self.pos
+            size: self.size
+            source: 'background-high.jpg'
+    
+    BoxLayout:
+        orientation:"vertical"
+        size:root.width, root.height
+        spacing:10
+        padding:50
+        Label:
+            id:second_window_text
+            font_size:40
+            text:"Which product?"
+        GridLayout:
+            cols:2
+            rows:2
+            spacing:10
+            Button:
+                text: "Eyeshades"
+                font_size:20
+                background_normal: 'es-n2.jpg'
+                
+                size_hint:(0.3,0.3)
+                
+                on_release:
+                    app.root.current="third_eyeshades"
+                    root.manager.transition.direction="right"
+                
+            Button:
+                text: "Lipstick"
+                font_size:20
+                background_normal: 'ls-n2.jpg'
+                size_hint:(0.3,0.3)
+                on_release:
+                    app.root.current="third_lipstick"
+                    root.manager.transition.direction="right"
+                
+            Button:
+                text: "Hair Color"
+                font_size:20
+                background_normal: 'hc-n.jpg'
+                size_hint:(0.3,0.3)
+                
+                on_release:
+                    app.root.current="third_haircolor"
+                    root.manager.transition.direction="right"
+                
+            Button:
+                text: "Nail Polish"
+                font_size:20
+                background_normal: 'np-n2.jpg'
+                size_hint:(0.3,0.3)
+                
+                on_release:
+                    app.root.current="third_nailpolish"
+                    root.manager.transition.direction="right"
+                
+       
+        FloatLayout:
+            spacing:10
+            padding:50
+                                
+            Button:
+            
+            
+                background_normal: 'button_back.png'
+                background_down:'button_back_off.png'
+                pos_hint:{'center_x':0.5,'y':.05}
+                size_hint:(0.2,0.4)
+                
+                on_release:
+                    app.root.current="first"
+                    root.manager.transition.direction="left"               
+        
+
+            
+        
+<ThirdWindow_eyeshades>:
+    canvas.before:
+        Rectangle:
+            pos: self.pos
+            size: self.size
+            source: 'background-high.jpg'
+    
+    
+    BoxLayout:
+        orientation:"vertical"
+        size:root.width, root.height
+        spacing:10
+        padding:50
+        
+        Label:
+            text:"Which company products are you seeking?"
+            font_size:30
+            outline_color:(0,0,0)
+            outline_width:1
+        GridLayout:
+            cols:2
+            Label:
+                font_size:20
+                text:"Morphe"
+                outline_color:(0,0,0)
+                outline_width:1
+            CheckBox:
+                id:morphe
+                color:(0,0,0,1)
+                on_active:root.checkbox_click1(self,self.active)
+            Label:
+                font_size:20
+                text:"m.a.c."
+                outline_color:(0,0,0)
+                outline_width:1
+            CheckBox:
+                id:mac
+                color:(0,0,0,1)
+                on_active:root.checkbox_click2(self,self.active)
+            Label:
+                font_size:20
+                text:"Loreal"
+                outline_color:(0,0,0)
+                outline_width:1
+            CheckBox:
+                id:loreal
+                color:(0,0,0,1)
+                on_active:root.checkbox_click3(self,self.active)
+            Label:
+                font_size:20
+                text:"Maybelline"
+                outline_color:(0,0,0)
+                outline_width:1
+            CheckBox:
+                id:maybelline
+                color:(0,0,0,1)
+                on_active:root.checkbox_click4(self,self.active)
+            Label:
+                text:"Anastasia"
+                font_size:20                
+                outline_color:(0,0,0)
+                outline_width:1
+            CheckBox:
+                id:anastasia
+                color:(0,0,0,1)
+                on_active:root.checkbox_click5(self,self.active)
+        FloatLayout:
+            spacing:10
+            padding:50
+                                
+            Button:
+            
+            
+                background_normal: 'button_back.png'
+                background_down:'button_back_off.png'
+                pos_hint:{'center_x':0.2,'y':.05}
+                size_hint:(0.2,0.4)
+                
+                on_release:
+                    app.root.current="second"
+                    root.manager.transition.direction="left"
+            Button:
+            
+            
+                background_normal: 'button_next.png'
+                background_down:'button_next_off.png'
+                pos_hint:{'center_x':0.8,'y':.05}
+                size_hint:(0.2,0.4)
+                
+                on_release:
+                    root.make_csv_eyeshades_outer(self)
+                    app.root.current="fourth"
+                    root.manager.transition.direction="right"
+                    
+        
+                
+        
+<ThirdWindow_lipstick>:
+    canvas.before:
+        Rectangle:
+            pos: self.pos
+            size: self.size
+            source: 'background-high.jpg'
+    
+    BoxLayout:
+        orientation:"vertical"
+        size:root.width, root.height
+        spacing:10
+        padding:50
+        
+        Label:
+            text:"Which company products are you seeking?"
+            font_size:30
+                           
+            outline_color:(0,0,0)
+            outline_width:1
+        GridLayout:
+            cols:2
+            Label:
+                font_size:20                
+                outline_color:(0,0,0)
+                outline_width:1
+                text:"Medora"
+            CheckBox:
+                id:medora
+                color:(0,0,0,1)
+                on_active:root.checkbox_click1(self,self.active)
+            Label:
+                font_size:20                
+                outline_color:(0,0,0)
+                outline_width:1
+                text:"Loreal"
+            CheckBox:
+                id:loreal
+                color:(0,0,0,1)
+                on_active:root.checkbox_click2(self,self.active)
+            Label:
+                font_size:20                
+                outline_color:(0,0,0)
+                outline_width:1
+                text:"Christine"
+            CheckBox:
+                id:christine
+                color:(0,0,0,1)
+                on_active:root.checkbox_click3(self,self.active)
+            Label:
+                font_size:20                
+                outline_color:(0,0,0)
+                outline_width:1
+                text:"Sweet Touch"
+            CheckBox:
+                id:sweettouch
+                color:(0,0,0,1)
+                on_active:root.checkbox_click4(self,self.active)
+            Label:
+                font_size:20                
+                outline_color:(0,0,0)
+                outline_width:1
+                text:"Lakme"
+            CheckBox:
+                id:lakme
+                color:(0,0,0,1)
+                on_active:root.checkbox_click5(self,self.active)
+        FloatLayout:
+            spacing:10
+            padding:50
+                                
+            Button:
+            
+            
+                background_normal: 'button_back.png'
+                background_down:'button_back_off.png'
+                pos_hint:{'center_x':0.2,'y':.05}
+                size_hint:(0.2,0.4)
+                
+                on_release:
+                    app.root.current="second"
+                    root.manager.transition.direction="left"
+            Button:
+            
+            
+                background_normal: 'button_next.png'
+                background_down:'button_next_off.png'
+                pos_hint:{'center_x':0.8,'y':.05}
+                size_hint:(0.2,0.4)
+                
+                on_release:
+                    root.make_csv_lipstick_outer(self)
+                    app.root.current="fourth"
+                    root.manager.transition.direction="right"
+                
+
+<ThirdWindow_haircolor>:
+    canvas.before:
+        Rectangle:
+            pos: self.pos
+            size: self.size
+            source: 'background-high.jpg'
+    
+    
+    BoxLayout:
+        orientation:"vertical"
+        size:root.width, root.height
+        spacing:10
+        padding:50
+        
+        Label:
+            text:"Which company products are you seeking?"
+            font_size:30
+                       
+            outline_color:(0,0,0)
+            outline_width:1
+        GridLayout:
+            cols:2
+            Label:
+                font_size:20                
+                outline_color:(0,0,0)
+                outline_width:1
+                text:"Revlon"
+            CheckBox:
+                id:revlon
+                color:(0,0,0,1)
+                on_active:root.checkbox_click1(self,self.active)
+            Label:
+                font_size:20                
+                outline_color:(0,0,0)
+                outline_width:1
+                text:"Loreal"
+            CheckBox:
+                id:loreal
+                color:(0,0,0,1)
+                on_active:root.checkbox_click2(self,self.active)
+            
+        FloatLayout:
+            spacing:10
+            padding:50
+                                
+            Button:
+            
+            
+                background_normal: 'button_back.png'
+                background_down:'button_back_off.png'
+                pos_hint:{'center_x':0.2,'y':.05}
+                size_hint:(0.2,0.4)
+                
+                on_release:
+                    app.root.current="second"
+                    root.manager.transition.direction="left"
+            Button:
+            
+            
+                background_normal: 'button_next.png'
+                background_down:'button_next_off.png'
+                pos_hint:{'center_x':0.8,'y':.05}
+                size_hint:(0.2,0.4)
+                
+                on_release:
+                    root.make_csv_haircolor_outer(self)
+                    app.root.current="fourth"
+                    root.manager.transition.direction="right"
+                
+        
+<ThirdWindow_nailpolish>:
+    canvas.before:
+        Rectangle:
+            pos: self.pos
+            size: self.size
+            source: 'background-high.jpg'
+   
+    
+    BoxLayout:
+        orientation:"vertical"
+        size:root.width, root.height
+        spacing:10
+        padding:50
+        
+        Label:
+            text:"Which company products are you seeking?"
+                            
+            outline_color:(0,0,0)
+            outline_width:1
+            font_size:30
+        GridLayout:
+            cols:2
+            Label:
+                
+                text:"Opi"
+                font_size:20                
+                outline_color:(0,0,0)
+                outline_width:1
+            CheckBox:
+                id:opi
+                color:(0,0,0,1)
+                on_active:root.checkbox_click1(self,self.active)
+            Label:
+                
+                text:"Gabrini"
+                font_size:20                
+                outline_color:(0,0,0)
+                outline_width:1
+            CheckBox:
+                id:gabrini
+                color:(0,0,0,1)
+                on_active:root.checkbox_click2(self,self.active)
+            Label:
+                text:"Essie"
+                font_size:20                
+                outline_color:(0,0,0)
+                outline_width:1
+            CheckBox:
+                id:essie
+                color:(0,0,0,1)
+                on_active:root.checkbox_click3(self,self.active)
+            Label:
+                
+                text:"Maybelline"
+                font_size:20                
+                outline_color:(0,0,0)
+                outline_width:1
+            CheckBox:
+                id:maybelline
+                color:(0,0,0,1)
+                on_active:root.checkbox_click4(self,self.active)
+            Label:
+                
+                text:"Medora"
+                font_size:20                
+                outline_color:(0,0,0)
+                outline_width:1
+            CheckBox:
+                id:medora
+                color:(0,0,0,1)
+                on_active:root.checkbox_click5(self,self.active)
+        FloatLayout:
+            spacing:10
+            padding:50
+                                
+            Button:
+            
+            
+                background_normal: 'button_back.png'
+                background_down:'button_back_off.png'
+                pos_hint:{'center_x':0.2,'y':.05}
+                size_hint:(0.2,0.4)
+                
+                on_release:
+                    app.root.current="second"
+                    root.manager.transition.direction="left"
+            Button:
+            
+            
+                background_normal: 'button_next.png'
+                background_down:'button_next_off.png'
+                pos_hint:{'center_x':0.8,'y':.05}
+                size_hint:(0.2,0.4)
+                
+                on_release:
+                    root.make_csv_nailpolish_outer(self)
+                    app.root.current="fourth"
+                    root.manager.transition.direction="right"
+                
+        
+            
+<FourthWindow>:
+    
+
+    
+    FloatLayout:
+                      
+        Image:
+            id:imi
+            
+            allow_stretch:True
+            keep_ratio:False
+            on_touch_down:
+                root.coordinate(args[1], self.size[0],self.size[1])
+        Button:
+            id:cc_button
+            
+            text:"Swatch"
+            outline_color:(0,0,0)
+            outline_width:1
+            size_hint:(.1, .1)            
+            pos_hint:{'x':.7, 'y':.05}
+            
+                   
+                
+        Button:
+            id:pro_button
+            
+            text:"Product\n Color"
+            outline_color:(0,0,0)
+            outline_width:1
+            size_hint:(.1, .1)            
+            pos_hint:{'x':.82, 'y':.05}
+           
+   
+        Label:
+            id:prod_name
+            size_hint:(0.3,0.2)
+            
+            outline_color:(0,0,0)
+            outline_width:1
+            
+            pos_hint: {"x":0.35, "y":0.01}
+        Button:
+            id:sc4_text
+            
+            background_normal: 'button_back.png'
+            background_down:'button_back_off.png'
+            size_hint:(.15, .1)
+            
+            pos_hint:{'x':.1, 'y':.05}
+            on_release:
+                root.clear_csv(self)
+                app.root.current="second"
+                root.manager.transition.direction="left"
+            
+            
+            
+
+                
+
